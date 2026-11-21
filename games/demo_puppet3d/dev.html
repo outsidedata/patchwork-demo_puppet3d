@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>demo_puppet3d dev</title>
+    <style>
+      body { margin: 0; background: #0b0b0e; display: grid; place-items: center; height: 100vh }
+      canvas { grid-area: 1 / 1 }
+      .lil-gui.root { max-height: 100vh; overflow-y: auto }
+      #readout { position: fixed; left: 8px; bottom: 8px; color: #e8e8e8; font: 13px monospace; white-space: pre; background: #000a; padding: 6px 8px; pointer-events: none }
+    </style>
+  </head>
+  <body>
+    <div id="readout"></div>
+    <script type="module">
+      // The testbed: index.html, the manager truth and the scene it enters, in this tab, one seat on it
+      // over a loopback, stepped on the page's clock. The truths are kept on `window.__scenes` and the page
+      // on `window.__page`. `?scene=<scene>` enters that scene, in this page's own copy of the manager's
+      // file, before the boot. The readout shows the step, the body at the station the camera is on,
+      // whether it stands upright, its speed, and the last five errors the page threw or wrote.
+      // The keys are the seat's (`player.client.ts`). `window.__run(frames)` plays frames at once (below), and
+      // `window.__hold(true)` stops the page's own clock, so only `__run` moves the game on, a frame at a time
+      // when asked for one; `__hold(false)` starts it again.
+      import { boot } from '#engine/engine.ts'
+      import { accept, load, manager, link, view } from '#addons/scenemanager/scenemanager.addon.ts'
+      import { loopback } from '#addons/loopback/loopback.addon.ts'
+      import { possessed } from '#plugins/player/player.plugin.ts'
+      import { sim } from './demo_puppet3d.sim.ts'
+      import file from './demo_puppet3d.scene.json'
+
+      const errors = []
+      const caught = e => {
+        errors.push(String(e?.message ?? e))
+        if (errors.length > 5) errors.shift()
+      }
+      addEventListener('error', e => caught(e.error ?? e.message))
+      addEventListener('unhandledrejection', e => caught(e.reason))
+      const written = console.error.bind(console)
+      console.error = (...a) => { caught(a.map(x => x?.message ?? x).join(' ')); written(...a) }
+
+      // `?scene=<scene>` enters that scene instead of the entry (`herd`, the AWOL animals in crowd3d).
+      const enter = new URLSearchParams(location.search).get('scene')
+      if (enter) file.prefabs.scenemanager.entry = enter
+      const dt = file.prefabs.engine.dt
+      const truth = boot(file, sim)
+      window.__scenes = await load(truth, import.meta.url)
+      const page = view(link(loopback(accept(manager(truth)))), file, import.meta.url, (me, scene) => {
+        for (const surface of [me.plugins.render3d ?? me.plugins.render2d, me.plugins.ui]) {
+          if (!surface) continue
+          const canvas = document.createElement('canvas')
+          canvas.width = scene.prefabs.engine.width
+          canvas.height = scene.prefabs.engine.height
+          document.body.appendChild(canvas)
+          surface.mount(canvas)
+        }
+        me.plugins.stats?.mount(document.body)
+      })
+      window.__page = page
+      const readout = document.getElementById('readout')
+
+      // `__run(frames)` plays that many frames at once, a step each, the page's clock moved a step on for
+      // each, whatever the tab's own frames are doing: a tab behind another window is given almost none,
+      // so a console reads the animals and their hair after a known number of frames with this.
+      let running = false, held = false
+      window.__hold = on => { held = on; last = performance.now(); owed = 0 }
+      window.__run = async frames => {
+        const real = performance.now
+        let t = real.call(performance)
+        running = true
+        performance.now = () => t
+        try {
+          for (let i = 0; i < frames; i++) {
+            t += dt * 1000
+            page.input()
+            truth.step(dt)
+            await page.frame(0)
+          }
+        } finally {
+          performance.now = real
+          running = false
+          last = performance.now()
+          owed = 0
+        }
+        return frames
+      }
+
+      let last = performance.now(), owed = 0
+      const loop = async now => {
+        if (running || held) { requestAnimationFrame(loop); return }
+        owed += Math.min((now - last) / 1000, 0.25)
+        last = now
+        try {
+          page.input()
+          while (owed >= dt) { truth.step(dt); owed -= dt }
+          await page.frame(owed / dt)
+        } catch (e) { caught(e) }
+        const mine = page.client && possessed(page.client.plugins.wire.rows)
+        const at = mine && page.client.plugins.wire.rows.find(r => r.data.at === mine.data.station)
+        readout.textContent = [`${file.prefabs.scenemanager.entry}  step ${truth.n}${at ? `  station ${mine.data.station}: ${at.kind}${at.data.upright ? ' upright' : ''} at ${at.data.speed.toFixed(2)} m/s` : ''}`, ...errors].join('\n')
+        requestAnimationFrame(loop)
+      }
+      requestAnimationFrame(loop)
+    </script>
+  </body>
+</html>

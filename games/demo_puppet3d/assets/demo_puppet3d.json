@@ -1,0 +1,924 @@
+{
+  "player": {
+    "stations": 7,
+    "view": {
+      "yaw": 1.25,
+      "pitch": 0.12,
+      "orbit": 1.6
+    },
+    "pilots": [
+      "horse",
+      "tiger",
+      "xbot",
+      "lion",
+      "cheetah",
+      "rider",
+      "hawk"
+    ],
+    "chase": {
+      "yaw": 0,
+      "pitch": 0.28
+    }
+  },
+  "horse": {
+    "senses": {
+      "clock": "clock",
+      "speed": "velocity",
+      "stride": "sprawlStride",
+      "upright": "rowUpright",
+      "upstride": "uprightStride"
+    },
+    "sheet": "horse_1",
+    "paces": [
+      "walk",
+      "upright"
+    ],
+    "layouts": {
+      "body": {
+        "layout": "awolQuadrupedLayout",
+        "on": "world",
+        "skeleton": "horse_1Skeleton",
+        "skin": "horse_1Skin",
+        "drivers": [
+          {
+            "name": "walk",
+            "solver": "pureQuadrupedDriver",
+            "gait": "horse_1",
+            "leap": {
+              "count": "leaps",
+              "height": "leapHeight"
+            },
+            "cues": "horse_body_walk",
+            "weight": [
+              {
+                "by": "upright",
+                "keys": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "name": "upright",
+            "solver": "upright",
+            "gait": "horse_1",
+            "cues": "horse_body_upright",
+            "weight": [
+              {
+                "by": "upright",
+                "keys": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "name": "wag",
+            "weight": [
+              {
+                "by": "clock",
+                "keys": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ],
+            "cues": "wag"
+          },
+          {
+            "name": "ears",
+            "weight": [
+              {
+                "by": "clock",
+                "keys": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ],
+            "cues": "ears"
+          }
+        ]
+      }
+    },
+    "show": {
+      "radius": 14.4,
+      "accel": 4,
+      "dist": 7.35,
+      "lift": 0.93,
+      "turn": 1.4
+    }
+  },
+  "tiger": {
+    "senses": {
+      "clock": "clock",
+      "speed": "velocity",
+      "stride": "sprawlStride",
+      "upright": "rowUpright",
+      "upstride": "uprightStride"
+    },
+    "sheet": "tiger_1",
+    "paces": [
+      "walk",
+      "upright"
+    ],
+    "layouts": {
+      "body": {
+        "layout": "awolQuadrupedLayout",
+        "on": "world",
+        "skeleton": "tiger_1Skeleton",
+        "skin": "tiger_1Skin",
+        "drivers": [
+          {
+            "name": "walk",
+            "solver": "pureQuadrupedDriver",
+            "gait": "tiger_1",
+            "leap": {
+              "count": "leaps",
+              "height": "leapHeight"
+            },
+            "cues": "tiger_body_walk",
+            "weight": [
+              {
+                "by": "upright",
+                "keys": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "name": "upright",
+            "solver": "upright",
+            "gait": "tiger_1",
+            "cues": "tiger_body_upright",
+            "weight": [
+              {
+                "by": "upright",
+                "keys": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "name": "look",
+            "weight": [
+              {
+                "by": "clock",
+                "keys": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ],
+            "cues": "look"
+          },
+          {
+            "name": "wag",
+            "weight": [
+              {
+                "by": "clock",
+                "keys": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ],
+            "cues": "wag"
+          }
+        ]
+      }
+    },
+    "show": {
+      "radius": 14.4,
+      "accel": 4,
+      "dist": 6,
+      "lift": 0.7,
+      "turn": 1.4
+    }
+  },
+  "lion": {
+    "senses": {
+      "clock": "clock",
+      "speed": "velocity",
+      "stride": "sprawlStride",
+      "upright": "rowUpright",
+      "upstride": "uprightStride"
+    },
+    "sheet": "male_lion_1",
+    "paces": [
+      "walk",
+      "upright"
+    ],
+    "layouts": {
+      "body": {
+        "layout": "awolQuadrupedLayout",
+        "on": "world",
+        "skeleton": "male_lion_1Skeleton",
+        "skin": "male_lion_1Skin",
+        "drivers": [
+          {
+            "name": "walk",
+            "solver": "pureQuadrupedDriver",
+            "gait": "male_lion_1",
+            "leap": {
+              "count": "leaps",
+              "height": "leapHeight"
+            },
+            "cues": "lion_body_walk",
+            "weight": [
+              {
+                "by": "upright",
+                "keys": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "name": "upright",
+            "solver": "upright",
+            "gait": "male_lion_1",
+            "cues": "lion_body_upright",
+            "weight": [
+              {
+                "by": "upright",
+                "keys": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "name": "wag",
+            "weight": [
+              {
+                "by": "clock",
+                "keys": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ],
+            "cues": "wag"
+          },
+          {
+            "name": "roar",
+            "weight": [
+              {
+                "by": "clock",
+                "keys": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    6,
+                    0
+                  ],
+                  [
+                    6.4,
+                    1
+                  ],
+                  [
+                    8,
+                    1
+                  ],
+                  [
+                    8.4,
+                    0
+                  ]
+                ],
+                "period": 10
+              }
+            ],
+            "cues": "roar"
+          }
+        ]
+      }
+    },
+    "show": {
+      "radius": 14.4,
+      "accel": 4,
+      "dist": 6,
+      "lift": 0.7,
+      "turn": 1.4
+    }
+  },
+  "cheetah": {
+    "senses": {
+      "clock": "clock",
+      "speed": "velocity",
+      "stride": "sprawlStride",
+      "upright": "rowUpright",
+      "upstride": "uprightStride"
+    },
+    "sheet": "cheetah_1",
+    "paces": [
+      "walk",
+      "upright"
+    ],
+    "layouts": {
+      "body": {
+        "layout": "awolQuadrupedLayout",
+        "on": "world",
+        "skeleton": "cheetah_1Skeleton",
+        "skin": "cheetah_1Skin",
+        "drivers": [
+          {
+            "name": "walk",
+            "solver": "pureQuadrupedDriver",
+            "gait": "cheetah_1",
+            "leap": {
+              "count": "leaps",
+              "height": "leapHeight"
+            },
+            "cues": "cheetah_body_walk",
+            "weight": [
+              {
+                "by": "upright",
+                "keys": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "name": "upright",
+            "solver": "upright",
+            "gait": "cheetah_1",
+            "cues": "cheetah_body_upright",
+            "weight": [
+              {
+                "by": "upright",
+                "keys": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "name": "graze",
+            "weight": [
+              {
+                "by": "speed",
+                "keys": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0.5,
+                    0
+                  ]
+                ]
+              }
+            ],
+            "cues": "graze"
+          },
+          {
+            "name": "ears",
+            "weight": [
+              {
+                "by": "clock",
+                "keys": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ],
+            "cues": "ears"
+          }
+        ]
+      }
+    },
+    "show": {
+      "radius": 14.4,
+      "accel": 4,
+      "dist": 6,
+      "lift": 0.7,
+      "turn": 1.4
+    }
+  },
+  "xbot": {
+    "senses": {
+      "clock": "clock",
+      "speed": "velocity",
+      "stride": "rowStride"
+    },
+    "speeds": [
+      0,
+      1.2,
+      1.669,
+      2.1,
+      2.5
+    ],
+    "stride": 1.72436,
+    "layouts": {
+      "body": {
+        "layout": "mixamo",
+        "on": "world",
+        "skeleton": "xbotSkeleton",
+        "skin": "xbotSkin",
+        "drivers": [
+          {
+            "name": "walk",
+            "cues": "xbot_body_walk",
+            "weight": [
+              {
+                "by": "speed",
+                "keys": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "name": "idle",
+            "cues": "xbot_body_idle",
+            "weight": [
+              {
+                "by": "speed",
+                "keys": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    1.66873,
+                    0
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "name": "nod",
+            "weight": [
+              {
+                "by": "clock",
+                "keys": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ],
+            "cues": "nod"
+          },
+          {
+            "name": "wave",
+            "weight": [
+              {
+                "by": "speed",
+                "keys": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0.3,
+                    0
+                  ]
+                ]
+              }
+            ],
+            "cues": "wave"
+          }
+        ]
+      }
+    },
+    "show": {
+      "radius": 14.4,
+      "accel": 4,
+      "dist": 4.5,
+      "lift": 1,
+      "turn": 1.4
+    }
+  },
+  "rider": {
+    "senses": {
+      "clock": "clock",
+      "speed": "velocity",
+      "stride": "sprawlStride",
+      "upright": "rowUpright",
+      "upstride": "uprightStride"
+    },
+    "sheet": "horse_1",
+    "paces": [
+      "walk",
+      "upright"
+    ],
+    "layouts": {
+      "body": {
+        "layout": "awolQuadrupedLayout",
+        "on": "world",
+        "skeleton": "horse_1Skeleton",
+        "skin": "horse_1Skin",
+        "drivers": [
+          {
+            "name": "walk",
+            "solver": "pureQuadrupedDriver",
+            "gait": "horse_1",
+            "leap": {
+              "count": "leaps",
+              "height": "leapHeight"
+            },
+            "cues": "horse_body_walk",
+            "weight": [
+              {
+                "by": "upright",
+                "keys": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "name": "upright",
+            "solver": "upright",
+            "gait": "horse_1",
+            "cues": "horse_body_upright",
+            "weight": [
+              {
+                "by": "upright",
+                "keys": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "name": "wag",
+            "weight": [
+              {
+                "by": "clock",
+                "keys": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ],
+            "cues": "wag"
+          },
+          {
+            "name": "ears",
+            "weight": [
+              {
+                "by": "clock",
+                "keys": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ],
+            "cues": "ears"
+          }
+        ]
+      },
+      "rider": {
+        "layout": "mixamo",
+        "on": "body:spine 2",
+        "along": 0.5,
+        "offset": [
+          0,
+          -0.8,
+          0
+        ],
+        "turn": [
+          0,
+          0,
+          0
+        ],
+        "skeleton": "xbotSkeleton",
+        "skin": "xbotSkin",
+        "drivers": [
+          {
+            "name": "seat",
+            "weight": [
+              {
+                "by": "clock",
+                "keys": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ],
+            "cues": "rider_rider_seat"
+          }
+        ]
+      }
+    },
+    "show": {
+      "radius": 14.4,
+      "accel": 4,
+      "dist": 7.35,
+      "lift": 0.93,
+      "turn": 1.4
+    }
+  },
+  "hawk": {
+    "senses": {
+      "clock": "clock",
+      "speed": "velocity",
+      "bank": "aloftBank",
+      "climb": "aloftClimb",
+      "air": "aloftAir",
+      "beat": "aloftBeat",
+      "flap": "aloftFlap",
+      "glide": "aloftGlide",
+      "effort": "aloftEffort",
+      "brake": "aloftBrake",
+      "stoop": "aloftStoop"
+    },
+    "speeds": [
+      0,
+      7,
+      10,
+      14
+    ],
+    "flight": {
+      "height": 9,
+      "full": 7,
+      "climb": 3.5,
+      "lift": 6,
+      "floor": 1.5,
+      "ceiling": 80
+    },
+    "layouts": {
+      "body": {
+        "layout": "proNgBird",
+        "on": "world",
+        "skeleton": "hawkSkeleton",
+        "skin": "hawkSkin",
+        "drivers": [
+          {
+            "name": "perch",
+            "cues": "hawk_perch",
+            "weight": [
+              {
+                "by": "clock",
+                "keys": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "name": "spread",
+            "cues": "hawk_spread",
+            "weight": [
+              {
+                "by": "air",
+                "keys": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    0.3,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "name": "fly",
+            "cues": "hawk_fly",
+            "weight": [
+              {
+                "by": "air",
+                "keys": [
+                  [
+                    0.15,
+                    0
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ]
+              }
+            ],
+            "solver": "aloft",
+            "gait": "hawkSheet"
+          },
+          {
+            "name": "power",
+            "cues": "hawk_power",
+            "weight": [
+              {
+                "by": "effort",
+                "keys": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "name": "glide",
+            "cues": "hawk_glide",
+            "weight": [
+              {
+                "by": "glide",
+                "keys": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "name": "tuck",
+            "cues": "hawk_tuck",
+            "weight": [
+              {
+                "by": "stoop",
+                "keys": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "name": "flare",
+            "cues": "hawk_flare",
+            "weight": [
+              {
+                "by": "brake",
+                "keys": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "name": "feathers",
+            "cues": "hawk_feathers",
+            "weight": [
+              {
+                "by": "clock",
+                "keys": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "name": "beat",
+            "cues": "hawk_beat",
+            "weight": [
+              {
+                "by": "flap",
+                "keys": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "name": "look",
+            "cues": "hawk_look",
+            "weight": [
+              {
+                "by": "clock",
+                "keys": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "show": {
+      "radius": 30,
+      "accel": 4,
+      "turn": 1.1,
+      "dist": 2.4,
+      "lift": 0.3
+    }
+  },
+  "meadow": {
+    "size": 200,
+    "colour": "#5f7d3c",
+    "roughness": 0.95
+  }
+}
